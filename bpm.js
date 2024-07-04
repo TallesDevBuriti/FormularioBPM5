@@ -45,6 +45,40 @@ function _init(data, info) {
             });
 
 
+            objectsArray.forEach(function(item) {
+                var customHtml = `
+                <div id="box-proprietario" class="border rounded mt-3 p-3">
+                    <div class="d-flex justify-content-end mb-3">
+                        <button type="button" id="btn-close-tab" class="btn btn-light btn-sm">
+                            <img src="./src/img/icons/close_tab.svg" alt="Icone de fechar aba">
+                        </button>
+                    </div>
+                    <div class="row g-2">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="nomeProp" placeholder="Preencha o nome do proprietário..." value="${item.nomeProp}" required>
+                            <label for="floatingInputGrid">Nome do Proprietário *</label>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-floating">
+                              <input type="tel" id="contatoProp" class="form-control propPhone" maxlength="15" placeholder="(00) 00000-0000" value="${item.contatoProp}" required>
+                              <label for="floatingInputGrid">Contato *</label>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-floating">
+                              <input type="email" class="form-control" id="emailProp" placeholder="abcdefgh@email.com" value="${item.emailProp}" required>
+                              <label for="floatingInputGrid">E-mail *</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+                
+                $('#box-dados-proprietarios').append(customHtml);
+            });
+
+
+
+
             console.log(data)
             console.log(objectsArray)
         })

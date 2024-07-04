@@ -72,7 +72,7 @@ function _init(data, info) {
                         </div>
                     </div>
                 </div>`;
-                
+
                 $('#box-dados-proprietarios').append(customHtml);
             });
 
@@ -80,6 +80,7 @@ function _init(data, info) {
 
 
             console.log(data)
+            console.log("array")
             console.log(objectsArray)
         })
     });

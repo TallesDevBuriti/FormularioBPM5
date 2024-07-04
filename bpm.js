@@ -44,6 +44,7 @@ function _init(data, info) {
                 objectsArray.push(obj);
             });
 
+            $('#box-proprietario').remove();
 
             objectsArray.forEach(function(item) {
                 var customHtml = `

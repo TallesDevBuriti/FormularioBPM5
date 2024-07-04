@@ -110,6 +110,8 @@ function _saveData(data, info) {
         
         dadosProprietarios.push({nomeProp, contatoProp, emailProp});
     })
+
+    console.log(blocksProp)
     
     newData.props = dadosProprietarios;
 

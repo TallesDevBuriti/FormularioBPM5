@@ -20,29 +20,32 @@ function _init(data, info) {
             console.log(platformData);
         });
         info.getInfoFromProcessVariables().then(function(data) {
-            const regex = /\{[^}]*\}/g;
-            const matches  = data[0].value.match(regex);
+            // const regex = /\{[^}]*\}/g;
+            // const matches  = data[0].value.match(regex);
 
-            const objectsArray = [];
+            // const objectsArray = [];
 
-            // Para cada parte encontrada, removemos as chaves e criamos um objeto
-            matches.forEach(match => {
-                // Remover as chaves
-                const cleanMatch = match.slice(1, -1);
+            // // Para cada parte encontrada, removemos as chaves e criamos um objeto
+            // matches.forEach(match => {
+            //     // Remover as chaves
+            //     const cleanMatch = match.slice(1, -1);
                 
-                // Separar as propriedades
-                const properties = cleanMatch.split(', ');
-                const obj = {};
+            //     // Separar as propriedades
+            //     const properties = cleanMatch.split(', ');
+                
+            //     // Construir o objeto
+            //     const obj = {};
 
-                // Construir o objeto
-                properties.forEach(property => {
-                    const [key, value] = property.split('=');
-                    obj[key.trim()] = value.trim();
-                });
+            //     properties.forEach(property => {
+            //         const [key, value] = property.split('=');
+            //         obj[key.trim()] = value.trim();
+            //     });
 
-                // Adicionar o objeto ao array
-                objectsArray.push(obj);
-            });
+            //     // Adicionar o objeto ao array
+            //     objectsArray.push(obj);
+            // });
+
+            let objectsArray = _convertStringToArrayObject(data);
 
             $('#box-proprietario').remove();
 
@@ -76,13 +79,6 @@ function _init(data, info) {
 
                 $('#box-dados-proprietarios').append(customHtml);
             });
-
-
-
-
-            console.log(data)
-            console.log("array")
-            console.log(objectsArray)
         })
     });
 }
@@ -135,4 +131,38 @@ function _rollback(data, info) {
        return removeData(data.processInstanceId);
     }
     return rollbackData(data.processInstanceId);
+}
+
+function _convertStringToArrayObject(data) {
+    data.forEach(keyItem => {
+        if(keyItem.key === "props") {
+            const regex = /\{[^}]*\}/g;
+            const matches  = keyItem.value.match(regex);
+
+            const objectsArray = [];
+
+            // Para cada parte encontrada, removemos as chaves e criamos um objeto
+            matches.forEach(match => {
+
+                // Remover as chaves
+                const cleanMatch = match.slice(1, -1);
+                        
+                // Separar as propriedades
+                const properties = cleanMatch.split(', ');
+                        
+                // Construir o objeto
+                const obj = {};
+
+                properties.forEach(property => {
+                    const [key, value] = property.split('=');
+                    obj[key.trim()] = value.trim();
+                });
+
+                // Adicionar o objeto ao array
+                objectsArray.push(obj);
+            });
+
+            return objectsArray;
+        }
+    });
 }
